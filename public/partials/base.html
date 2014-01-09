@@ -1,0 +1,92 @@
+<style type="text/css">
+
+    .datepicker dropdown-menu {
+        z-index: 100000;
+        display: block;
+    }
+    
+    .memo-red {
+        color: red;
+    }
+
+    div[ng-if="template"] {
+        display:none;
+    }
+
+</style>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="well">
+
+            <form class="form-horizontal">
+                <fieldset>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="sltCategory">{{ base_category }}</label>
+
+                        <div class="col-lg-10">
+                            <select id="sltCategory" class="form-control" ng-model="category" ng-options="category.name for category in categories" required></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipInfo1" class="col-lg-2 control-label">{{ base_info1 }}</label>
+                        <div class="col-lg-10">
+                            <input id="tipInfo1" type="text" class="form-control" required ng-model="base.info1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipInfo2" class="col-lg-2 control-label">{{ base_info2 }}</label>
+                        <div class="col-lg-10">
+                            <input id="tipInfo2" type="text" class="form-control" ng-model="base.info2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipInfo3" class="col-lg-2 control-label">{{ base_info3 }}</label>
+                        <div class="col-lg-10">
+                            <input id="tipInfo3" type="text" class="form-control" ng-model="base.info3">
+                        </div>
+                    </div><div class="form-group">
+                    <label for="tipInfo4" class="col-lg-2 control-label">{{ base_info4 }}</label>
+                    <div class="col-lg-10">
+                        <input id="tipInfo4" type="text" class="form-control" ng-model="base.info4">
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <label for="tipInfo5" class="col-lg-2 control-label">{{ base_info5 }}</label>
+                        <div class="col-lg-10">
+                            <input id="tipInfo5" type="text" class="form-control" ng-model="base.info5">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <div class="col-lg-10 col-lg-offset-2">
+                <div class="form-group"><hr style="margin-top: 5px;"></div>
+                <button type="reset" class="btn btn-default" ng-click="new()" ng-disabled="newDisabled">{{ common_new }}</button>
+                <button type="submit" class="btn btn-info" ng-click="save()" ng-disabled="saveDisabled">{{ common_save }}</button>
+                <button type="button" class="btn btn-danger" ng-click="remove()" ng-disabled="removeDisabled">{{ common_remove }}</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6">
+        <div style="width:100%;padding-top: 10px;">
+            <input style="width:300px;float: right;" class="form-control" type="text" ng-model="search.$">
+        </div>
+        <div style="width: 100%;overflow-x: auto;">
+            <!--<div id="grid" ng-grid="gridOptions" ng-style="gridStyle"></div>-->
+            <table id="table" ng-table="tableParams" class="table table-hover" export-csv="csv">
+                <tr ng-repeat="item in $data | filter:search"  ng-click='selectData($index)' ng-class="{ active: $index==selectedIndex  }"  >
+                    <td style="width: auto;text-align: center;" data-title="'#'" sortable="num" >{{item.num}}</td>
+                    <td style="width: auto;text-align: center;" data-title="'Category'" sortable="category" >{{item.category}}</td>
+                    <td style="width: auto;text-align: center;" data-title="'Info1'" sortable="info1">{{item.info1}}</td>
+                    <td style="width: auto;text-align: center;" data-title="'Info2'" sortable="info2">{{item.info2}}</td>
+                    <td style="width: auto;text-align: center;" data-title="'Info3'" sortable="info3">{{item.info3}}</td>
+                    <td style="width: auto;text-align: center;" data-title="'Info4'" sortable="info4">{{item.info4}}</td>
+                    <td style="width: auto;text-align: center;" data-title="'Info5'" sortable="info5">{{item.info5}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>

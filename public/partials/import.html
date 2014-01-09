@@ -1,0 +1,96 @@
+<style>
+    div[ng-if="template"] {
+        display:none;
+    }
+</style>
+
+<div class="form-group" style="padding-bottom: 30px">
+    <div class="col-lg-10">
+        <div class="input-append date" id="dpMonths" data-date="2013/09" data-date-format="yyyy/mm" data-date-viewmode="years" data-date-minviewmode="months" style="float: left;margin-right: 5px">
+            <input class="form-control" type="text" value="2013/09" readonly style="width: 130px;float: left;">
+            <button type="button" class="btn btn-default add-on" style="float: left;height: 43px;" >
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i>
+            </button>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $('#dpMonths').datepicker()
+            });
+        </script>
+    </div>
+</div>
+
+<div>
+    <div style="width:100%;padding-top: 10px;">
+        <a class="btn btn-info" style="width:120px;float: right;margin-left: 15px" ng-click="importData()">{{ import_table_import_data }}</a>
+        <textarea id="copyBox" style="width:300px;float: right;" rows="1" class="form-control" type="text" placeholder="Copy, paste or Cut message here"></textarea>
+    </div>
+
+
+    <div style="width: 100%;overflow-x: auto;">
+        <!--<div id="grid" ng-grid="gridOptions" ng-style="gridStyle"></div>-->
+        <table id="table" ng-table="tableParams" class="table table-hover" export-csv="csv">
+            <tr id="cols" ng-repeat="item in $data | filter:search"  ng-click='selectData($index)' ng-class="{ 'success': item.flag == 'change', 'warning': item.flag == 'new', 'danger': item.flag == 'cancel', active: $index==selectedIndex  }"  >
+                <td style="width: auto;text-align: center;" data-title="'#'" sortable="num" >{{item.num}}</td>
+                <td style="width: auto;text-align: center;" data-title="'Group'" sortable="group" >{{item.group}}</td>
+                <td style="width: auto;text-align: center;" data-title="'Service'" sortable="service">{{item.service}}</td>
+                <td style="width: auto;text-align: center;" data-title="'Licensee'" sortable="licensee">{{item.licensee}}</td>
+                <td style="width: auto;text-align: center;" data-title="'Customer'" sortable="customer">{{item.customer}}</td>
+                <td style="width: auto;text-align: center;" data-title="'Customer No.'" sortable="customer_no">{{item.customer_no}}</td>
+                <td style="width: auto;text-align: center;" data-title="'Speed'" sortable="speed">{{item.speed}}</td>
+                <td style="width: auto;text-align: center;" data-title="'BU'" sortable="bu">{{item.bu}}</td>
+                <td style="width: auto;text-align: center;" data-title="'Contact'" sortable="contact">{{item.contact}}</td>
+
+                <td style="width: auto;text-align: center;" data-title="'Flag'" sortable="flag">{{item.flag}}</td>
+                <td style="width: auto;text-align: center;" data-title="'Unit'" sortable="unit">{{item.unit}}</td>
+
+                <!--sales-->
+                <!--<td style="width: 10%;text-align: right;" data-title="'LOCAL'" sortable="s_local" >{{item.s_local|number:2}} →{{item.s_local*rate[item.unit]| number:0}}</td>-->
+                <td style="width: 10%;text-align: right;background-color: skyblue" data-title="'LOCAL'" sortable="s_local" >{{item.s_local}}</td>
+                <td style="width: 10%;text-align: right;background-color: skyblue" data-title="'DSU'" sortable="s_dsu" >{{item.s_dsu}}</td>
+                <td style="width: 10%;text-align: right;background-color: skyblue" data-title="'ONE TIME'" sortable="s_one_time" >{{item.s_one_time}}</td>
+                <td style="width: 10%;text-align: right;background-color: skyblue" data-title="'QoS W.P'" sortable="s_qos_wp" >{{item.s_qos_wp}}</td>
+                <td style="width: 10%;text-align: right;background-color: skyblue" data-title="'W.P'" sortable="s_wp" >{{item.s_wp}}</td>
+                <td style="width: 10%;text-align: right;background-color: skyblue" data-title="'TAX'" sortable="s_tax" >{{item.s_tax}}</td>
+                <td style="width: 10%;text-align: right;background-color: skyblue" data-title="'SL'" sortable="s_sl" >{{item.s_sl}}</td>
+                <td style="width: 10%;text-align: right;background-color: skyblue" data-title="'LOCAL-J'" sortable="s_local_j" >{{item.s_local_j}}</td>
+                <td style="width: 10%;text-align: right;background-color: skyblue" data-title="'I.C.'" sortable="s_ic" >{{item.s_ic}}</td>
+
+                <td style="width: 10%;text-align: right;background-color: deepskyblue" data-title="'LOCAL_EX'" sortable="s_local_ex" >{{item.s_local_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: deepskyblue" data-title="'DSU_EX'" sortable="s_dsu_ex" >{{item.s_dsu_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: deepskyblue" data-title="'ONE TIME_EX'" sortable="s_one_time_ex" >{{item.s_one_time_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: deepskyblue" data-title="'QoS W.P_EX'" sortable="s_qos_wp_ex" >{{item.s_qos_wp_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: deepskyblue" data-title="'W.P_EX'" sortable="s_wp_ex" >{{item.s_wp_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: deepskyblue" data-title="'TAX_EX'" sortable="s_tax_ex" >{{item.s_tax_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: deepskyblue" data-title="'SL_EX'" sortable="s_sl_ex" >{{item.s_sl_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: deepskyblue" data-title="'LOCAL-J_EX'" sortable="s_local_j_ex" >{{item.s_local_j_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: deepskyblue" data-title="'I.C._EX'" sortable="s_ic_ex" >{{item.s_ic_ex}}</td>
+
+                <!--purchases-->
+                <td style="width: 10%;text-align: right;background-color: palegreen" data-title="'LOCAL'" sortable="p_local">{{item.p_local}}</td>
+                <td style="width: 10%;text-align: right;background-color: palegreen" data-title="'N DSU'" sortable="p_n_dsu" >{{item.p_n_dsu}}</td>
+                <td style="width: 10%;text-align: right;background-color: palegreen" data-title="'TRAS-DC'" sortable="p_tras_dc" >{{item.p_tras_dc}}</td>
+                <td style="width: 10%;text-align: right;background-color: palegreen" data-title="'W.P'" sortable="p_wp" >{{item.p_wp}}</td>
+                <td style="width: 10%;text-align: right;background-color: palegreen" data-title="'TRANSMIT'" sortable="p_transmit" >{{item.p_transmit}}</td>
+                <td style="width: 10%;text-align: right;background-color: palegreen" data-title="'SL'" sortable="p_sl" >{{item.p_sl}}</td>
+                <td style="width: 10%;text-align: right;background-color: palegreen" data-title="'QoS SL'" sortable="p_qos_sl" >{{item.p_qos_sl}}</td>
+                <td style="width: 10%;text-align: right;background-color: palegreen" data-title="'LOCAL-J'" sortable="p_local_j" >{{item.p_local_j}}</td>
+                <td style="width: 10%;text-align: right;background-color: palegreen" data-title="'I DSU'" sortable="p_i_dsu" >{{item.p_i_dsu}}</td>
+                <td style="width: 10%;text-align: right;background-color: palegreen" data-title="'I.C.'" sortable="p_ic" >{{item.p_ic}}</td>
+
+                <td style="width: 10%;text-align: right;background-color: mediumseagreen" data-title="'LOCAL_EX'" sortable="p_local_ex">{{item.p_local_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: mediumseagreen" data-title="'N DSU_EX'" sortable="p_n_dsu_ex" >{{item.p_n_dsu_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: mediumseagreen" data-title="'TRAS-DC_EX'" sortable="p_tras_dc_ex" >{{item.p_tras_dc_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: mediumseagreen" data-title="'W.P_EX'" sortable="p_wp_ex" >{{item.p_wp_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: mediumseagreen" data-title="'TRANSMIT_EX'" sortable="p_transmit_ex" >{{item.p_transmit_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: mediumseagreen" data-title="'SL_EX'" sortable="p_sl_ex" >{{item.p_sl_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: mediumseagreen" data-title="'QoS SL_EX'" sortable="p_qos_sl_ex" >{{item.p_qos_sl_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: mediumseagreen" data-title="'LOCAL-J_EX'" sortable="p_local_j_ex" >{{item.p_local_j_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: mediumseagreen" data-title="'I DSU_EX'" sortable="p_i_dsu_ex" >{{item.p_i_dsu_ex}}</td>
+                <td style="width: 10%;text-align: right;background-color: mediumseagreen" data-title="'I.C._EX'" sortable="p_ic_ex" >{{item.p_ic_ex}}</td>
+
+            </tr>
+        </table>
+    </div>
+</div>
+

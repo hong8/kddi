@@ -1,0 +1,127 @@
+<style>
+    div[ng-if="template"] {
+        display:none;
+    }
+</style>
+
+<div class="form-group" style="padding-bottom: 30px">
+    <div class="col-lg-10">
+        <div ng-show="!chart4View" class="input-append date" id="dpMonthsFrom" data-date="2013/09" data-date-format="yyyy/mm" data-date-viewmode="years" data-date-minviewmode="months" style="float: left;margin-right: 5px">
+            <input class="form-control" type="text" value="2013/09" readonly style="width: 130px;float: left;">
+            <button type="button" class="btn btn-default add-on" style="float: left;height: 43px;" >
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i>
+            </button>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $('#dpMonthsFrom').datepicker()
+            });
+        </script>
+
+        <div class="input-append date" id="dpMonthsTo" data-date="2013/09" data-date-format="yyyy/mm" data-date-viewmode="years" data-date-minviewmode="months" style="float: left;margin-right: 5px">
+            <input class="form-control" type="text" value="2013/09" readonly style="width: 130px;float: left;">
+            <button type="button" class="btn btn-default add-on" style="float: left;height: 43px;" >
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i>
+            </button>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $('#dpMonthsTo').datepicker()
+            });
+        </script>
+    </div>
+</div>
+
+<div>
+    <div style="width:100%;padding-top: 10px;">
+        <a class="btn btn-info" style="width:120px;float: right;margin-left: 15px" ng-mousedown="csv.generate()" ng-href="{{ csv.link() }}" download="download.csv">{{ list_table_export_data }}</a>
+        <input style="width:300px;float: right;" class="form-control" type="text" ng-model="search.$">
+    </div>
+
+
+    <div style="width: 100%;overflow-x: auto;">
+        <!--<div id="grid" ng-grid="gridOptions" ng-style="gridStyle"></div>-->
+        <table id="table" ng-table="tableParams" class="table table-hover" export-csv="csv">
+            <tr ng-repeat="item in $data | filter:search"  ng-click='selectData($index)' ng-class="{ 'success': item.flag == 'change', 'warning': item.flag == 'new', 'danger': item.flag == 'cancel', active: $index==selectedIndex  }"  >
+                <td style="width: auto;text-align: center;" data-title="'Month'" sortable="num" >{{item.month}}</td>
+                <td style="width: auto;text-align: center;" data-title="'#'" sortable="num" >{{item.num}}</td>
+                <td style="width: auto;text-align: center;" data-title="'Group'" sortable="group" >{{item.group}}</td>
+                <td style="width: auto;text-align: center;" data-title="'Service'" sortable="service">{{item.service}}</td>
+                <td style="width: auto;text-align: center;" data-title="'Licensee'" sortable="licensee">{{item.licensee}}</td>
+                <td style="width: auto;text-align: center;" data-title="'Customer'" sortable="customer">{{item.customer}}({{item.customer_no}})</td>
+                <td style="width: auto;text-align: center;" data-title="'Speed'" sortable="speed">{{item.speed}}</td>
+                <td style="width: auto;text-align: center;" data-title="'BU'" sortable="bu">{{item.bu}}</td>
+                <td style="width: auto;text-align: center;" data-title="'Contact'" sortable="contact">{{item.contact}}</td>
+
+                <!--sales-->
+                <!--<td style="width: 10%;text-align: right;" data-title="'LOCAL'" sortable="s_local" >{{item.s_local|number:2}} →{{item.s_local*rate[item.unit]| number:0}}</td>-->
+                <td style="width: 10%;text-align: right;" data-title="'LOCAL'" sortable="s_local" >{{item.s_local|number:2}} →{{item.s_local_ex&&item.s_local_ex||item.s_local*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'DSU'" sortable="s_dsu" >{{item.s_dsu|number:2}} →{{item.s_dsu_ex&&item.s_dsu_ex||item.s_dsu*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'ONE TIME'" sortable="s_one_time" >{{item.s_one_time|number:2}} →{{item.s_one_time_ex&&item.s_one_time_ex||item.s_one_time*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'QoS W.P'" sortable="s_qos_wp" >{{item.s_qos_wp|number:2}} →{{item.s_qos_wp_ex&&item.s_qos_wp_ex||item.s_qos_wp*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'W.P'" sortable="s_wp" >{{item.s_wp|number:2}} →{{item.s_wp_ex&&item.s_wp_ex||item.s_wp*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'TAX'" sortable="s_tax" >{{item.s_tax|number:2}} →{{item.s_tax_ex&&item.s_tax_ex||item.s_tax*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'SL'" sortable="s_sl" >{{item.s_sl|number:2}} →{{item.s_sl_ex&&item.s_sl_ex||item.s_sl*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'LOCAL-J'" sortable="s_local_j" >{{item.s_local_j|number:2}} →{{item.s_local_j_ex&&item.s_local_j_ex||item.s_local_j*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'I.C.'" sortable="s_ic" >{{item.s_ic|number:2}} →{{item.s_ic_ex&&item.s_ic_ex||item.s_ic*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 15%;text-align: right;background-color: darkorange" data-title="'Sales Total'" sortable="s_total">
+                    {{item.s_local+item.s_dsu+item.s_one_time+item.s_qos_wp+item.s_wp+item.s_tax+item.s_sl+item.s_local_j+item.s_ic|number:2}} →{{item.s_total&&item.s_total||(item.s_local_ex&&item.s_local_ex||item.s_local*unit[item.month][item.unit])+
+                    (item.s_dsu_ex&&item.s_dsu_ex||item.s_dsu*unit[item.month][item.unit])+
+                    (item.s_one_time_ex&&item.s_one_time_ex||item.s_one_time*unit[item.month][item.unit])+
+                    (item.s_qos_wp_ex&&item.s_qos_wp_ex||item.s_qos_wp*unit[item.month][item.unit])+
+                    (item.s_wp_ex&&item.s_wp_ex||item.s_wp*unit[item.month][item.unit])+
+                    (item.s_tax_ex&&item.s_tax_ex||item.s_tax*unit[item.month][item.unit])+
+                    (item.s_sl_ex&&item.s_sl_ex||item.s_sl*unit[item.month][item.unit])+
+                    (item.s_local_j_ex&&item.s_local_j_ex||item.s_local_j*unit[item.month][item.unit])+
+                    (item.s_ic_ex&&item.s_ic_ex||item.s_ic*unit[item.month][item.unit]) | number:0}}</td>
+
+                <!--purchases-->
+                <td style="width: 10%;text-align: right;" data-title="'LOCAL'" sortable="p_local">{{item.p_local|number:2}} →{{item.p_local_ex&&item.p_local_ex||item.p_local*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'N DSU'" sortable="p_n_dsu" >{{item.p_n_dsu|number:2}} →{{item.p_n_dsu_ex&&item.p_n_dsu_ex||item.p_n_dsu*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'TRAS-DC'" sortable="p_tras_dc" >{{item.p_tras_dc|number:2}} →{{item.p_tras_dc_ex&&item.p_tras_dc_ex||item.p_tras_dc*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'W.P'" sortable="p_wp" >{{item.p_wp|number:2}} →{{item.p_wp_ex&&item.p_wp_ex||item.p_wp*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'TRANSMIT'" sortable="p_transmit" >{{item.p_transmit|number:2}} →{{item.p_transmit_ex&&item.p_transmit_ex||item.p_transmit*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'SL'" sortable="p_sl" >{{item.p_sl|number:2}} →{{item.p_sl_ex&&item.p_sl_ex||item.p_sl*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'QoS SL'" sortable="p_qos_sl" >{{item.p_qos_sl|number:2}} →{{item.p_qos_sl_ex&&item.p_qos_sl_ex||item.p_qos_sl*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'LOCAL-J'" sortable="p_local_j" >{{item.p_local_j|number:2}} →{{item.p_local_j_ex&&item.p_local_j_ex||item.p_local_j*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'I DSU'" sortable="p_i_dsu" >{{item.p_i_dsu|number:2}} →{{item.p_i_dsu_ex&&item.p_i_dsu_ex||item.p_i_dsu*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 10%;text-align: right;" data-title="'I.C.'" sortable="p_ic" >{{item.p_ic|number:2}} →{{item.p_ic_ex&&item.p_ic_ex||item.p_ic*unit[item.month][item.unit]| number:0}}</td>
+                <td style="width: 15%;text-align: right;background-color: darkorange" data-title="'Purchases Total'" sortable="p_total" >
+                    {{item.p_local+item.p_n_dsu+item.p_tras_dc+item.p_wp+item.p_transmit+item.p_sl+item.p_qos_sl+item.p_local_j+item.p_i_dsu+item.p_ic|number:2}} →{{item.p_total&&item.p_total||(item.p_local_ex&&item.p_local_ex||item.p_local*unit[item.month][item.unit])+
+                    (item.p_n_dsu_ex&&item.p_n_dsu_ex||item.p_n_dsu*unit[item.month][item.unit])+
+                    (item.p_tras_dc_ex&&item.p_tras_dc_ex||item.p_tras_dc*unit[item.month][item.unit])+
+                    (item.p_wp_ex&&item.p_wp_ex||item.p_wp*unit[item.month][item.unit])+
+                    (item.p_transmit_ex&&item.p_transmit_ex||item.p_transmit*unit[item.month][item.unit])+
+                    (item.p_sl_ex&&item.p_sl_ex||item.p_sl*unit[item.month][item.unit])+
+                    (item.p_qos_sl_ex&&item.p_qos_sl_ex||item.p_qos_sl*unit[item.month][item.unit])+
+                    (item.p_local_j_ex&&item.p_local_j_ex||item.p_local_j*unit[item.month][item.unit])+
+                    (item.p_i_dsu_ex&&item.p_i_dsu_ex||item.p_i_dsu*unit[item.month][item.unit])+
+                    (item.p_ic_ex&&item.p_ic_ex||item.p_ic*unit[item.month][item.unit]) | number:0}}</td>
+
+                <td style="width: 15%;text-align: right;background-color: orangered" data-title="'Contribution Margin'" sortable="cm_total" >
+                    {{item.cm_total&&item.cm_total||( (item.s_local_ex&&item.s_local_ex||item.s_local*unit[item.month][item.unit])+
+                    (item.s_dsu_ex&&item.s_dsu_ex||item.s_dsu*unit[item.month][item.unit])+
+                    (item.s_one_time_ex&&item.s_one_time_ex||item.s_one_time*unit[item.month][item.unit])+
+                    (item.s_qos_wp_ex&&item.s_qos_wp_ex||item.s_qos_wp*unit[item.month][item.unit])+
+                    (item.s_wp_ex&&item.s_wp_ex||item.s_wp*unit[item.month][item.unit])+
+                    (item.s_tax_ex&&item.s_tax_ex||item.s_tax*unit[item.month][item.unit])+
+                    (item.s_sl_ex&&item.s_sl_ex||item.s_sl*unit[item.month][item.unit])+
+                    (item.s_local_j_ex&&item.s_local_j_ex||item.s_local_j*unit[item.month][item.unit])+
+                    (item.s_ic_ex&&item.s_ic_ex||item.s_ic*unit[item.month][item.unit]) )
+                    -
+                    ( (item.p_local_ex&&item.p_local_ex||item.p_local*unit[item.month][item.unit])+
+                    (item.p_n_dsu_ex&&item.p_n_dsu_ex||item.p_n_dsu*unit[item.month][item.unit])+
+                    (item.p_tras_dc_ex&&item.p_tras_dc_ex||item.p_tras_dc*unit[item.month][item.unit])+
+                    (item.p_wp_ex&&item.p_wp_ex||item.p_wp*unit[item.month][item.unit])+
+                    (item.p_transmit_ex&&item.p_transmit_ex||item.p_transmit*unit[item.month][item.unit])+
+                    (item.p_sl_ex&&item.p_sl_ex||item.p_sl*unit[item.month][item.unit])+
+                    (item.p_qos_sl_ex&&item.p_qos_sl_ex||item.p_qos_sl*unit[item.month][item.unit])+
+                    (item.p_local_j_ex&&item.p_local_j_ex||item.p_local_j*unit[item.month][item.unit])+
+                    (item.p_i_dsu_ex&&item.p_i_dsu_ex||item.p_i_dsu*unit[item.month][item.unit])+
+                    (item.p_ic_ex&&item.p_ic_ex||item.p_ic*unit[item.month][item.unit]) ) | number:0}}</td>
+
+            </tr>
+        </table>
+    </div>
+</div>
+

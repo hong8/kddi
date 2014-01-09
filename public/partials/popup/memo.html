@@ -1,0 +1,43 @@
+<style type="text/css">
+    .modal
+    {
+        min-width: 400px;
+        width: 400px;
+        min-height: 500px;
+        height: 500px;
+    }
+
+    .modal-body {
+        max-height: 500px;
+    }
+
+    .modal-footer
+    {
+        padding-top: 7px;
+    }
+
+    .well
+    {
+        min-width: 100px;
+        min-height: 100px;
+        height: 330px;
+    }
+</style>
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="close()">×</button>
+    <h3>{{ memo_main_title }}</h3>
+</div>
+
+<div class="modal-body">
+    <div class="well">
+        <textarea style="height: 100%" class="form-control" rows="3" id="textArea" ng-model="result"></textarea>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button ng-click="close()" class="btn btn-default" >{{ common_close }}</button>
+    <button type="submit" class="btn btn-primary" ng-click="saveMemo(result)">{{ common_save }}</button>
+</div>
+
+

@@ -1,0 +1,241 @@
+<style type="text/css">
+
+    .datepicker dropdown-menu {
+        z-index: 100000;
+        display: block;
+    }
+    
+    .memo-red {
+        color: red;
+    }
+
+</style>
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="well" id="container1">
+
+            <div class="row">
+                <form class="form-horizontal" style="max-width: 240px;float: left;margin-left: 10px">
+                    <fieldset>
+
+                        <div class="form-group">
+                            <div class="col-lg-10">
+                                <div class="input-append date" id="dpMonths" data-date="2013/09" data-date-format="yyyy/mm" data-date-viewmode="years" data-date-minviewmode="months" style="float: left;margin-right: 5px">
+                                    <input class="form-control" type="text" value="2013/09" readonly style="width: 130px;float: left;">
+                                    <button type="button" class="btn btn-default add-on" style="float: left;height: 43px;" >
+                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i>
+                                    </button>
+                                </div>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#dpMonths').datepicker()
+                                    });
+                                </script>
+                            </div>
+                        </div>
+
+                        <div class="form-group"><hr style="width: 100%;height:10px;margin: 0;padding: 0"></div>
+
+                        <div class="form-group" >
+                            <input id="chkChange" type="radio" ng-model="ps.flag" value="change" style="float: left;width: 30px;height: 30px;margin-left: 15px;" ><label class="label-success" style="float: left;margin-left: 5px;margin-top: 8px">{{input_flag_change}}</label>
+                            <input id="chkNew" type="radio" ng-model="ps.flag" value="new" style="float: left;width: 30px;height: 30px;margin-left: 10px;" ><label class="label-warning" style="float: left;margin-left: 5px;margin-top: 8px">{{input_flag_new}}</label>
+                            <input id="chkCancel" type="radio" ng-model="ps.flag" value="cancel" style="float: left;width: 30px;height: 30px;margin-left: 10px;" ><label class="label-danger" style="float: left;margin-left: 5px;margin-top: 8px">{{input_flag_cancel}}</label>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="sltGroup">{{ input_group }}</label>
+
+                            <div class="col-lg-10">
+                                <select id="sltGroup" class="form-control" ng-model="group" ng-options="item.info1 for item in groups" required></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="sltService">{{ input_service }}</label>
+
+                            <div class="col-lg-10">
+                                <select id="sltService" class="form-control" ng-model="service" ng-options="item.info1 for item in services" required></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="sltLicensee">{{ input_licensee }}</label>
+
+                            <div class="col-lg-10">
+                                <select id="sltLicensee" class="form-control" ng-model="licensee" ng-options="item.info1 for item in licensees" required></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="sltCustomer">{{ input_customer }}</label>
+
+                            <div class="col-lg-10">
+                                <select id="sltCustomer" class="form-control" ng-model="customer" ng-options="item.info1 for item in customers" required></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="sltSpeed">{{ input_speed }}</label>
+
+                            <div class="col-lg-10">
+                                <select id="sltSpeed" class="form-control" ng-model="speed" ng-options="item.info1 for item in speeds" required></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="sltBu">{{ input_bu }}</label>
+
+                            <div class="col-lg-10">
+                                <select id="sltBu" class="form-control" ng-model="bu" ng-options="item.info1 for item in bus" required></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="sltContact">{{ input_contact }}</label>
+
+                            <div class="col-lg-10">
+                                <select id="sltContact" class="form-control" ng-model="contact" ng-options="item.info1 for item in contacts" required></select>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <div style="width:-webkit-calc(100% - 270px);float: left;margin-left: 15px" >
+                    <ul class="nav nav-tabs" >
+                        <li class="active"><a href="#sales-tab" data-toggle="tab">{{ input_sales }}</a></li>
+                        <li class=""><a href="#purchase-tab" data-toggle="tab">{{ input_purchases }}</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content" style="padding:5px;background-color: #ffffff">
+                        <div class="tab-pane fade active in" id="sales-tab">
+                            <form class="form-horizontal">
+                                <fieldset>
+                                    <!--<div class="form-group" >-->
+                                        <!--<label class="col-lg-2 control-label" for="chkAllS">{{ input_check_all }}</label>-->
+
+                                        <!--<input id="chkAllS" type="checkbox" ng-model="s_check_all" style="float: left;width: 30px;height: 30px;margin-left: 15px;" onchange="angular.element(this).scope().setCheck(this)">-->
+                                    <!--</div>-->
+
+                                    <div class="form-group" ng-repeat="sale in sales" style="margin-bottom: 3px">
+                                        <label class="col-lg-2 control-label" for="sltUnit1">{{ sale.info1 }}</label>
+
+                                        <div class="col-lg-10" style="margin-top: 0px">
+                                            <div class="input-append" style="float: left;margin-right: 5px">
+                                                <select id="sltUnit1" ng-change="unitChanged()" class="form-control input-sm" style="width: 50px; float: left;padding-left: 3px" ng-model="unitForForm" ng-options="item.info2 for item in units" ></select>
+                                            </div>
+                                            <div class="input-append" style="float: left;">
+                                                <input type="text" style="width: 120px; float: left;text-align: right" class="number form-control input-sm" ng-model="ps[sale.info2]">
+                                            </div>
+                                            <label style="padding-top: 8px;float: left;">→</label>
+                                            <div class="input-append" style="float: left;">
+                                                <input type="text" style="width: 120px; float: left;text-align: right" class="form-control input-sm" ng-model="ps[sale.info2+'_ex']" value="{{ps[sale.info2+'_ex']&&ps[sale.info2+'_ex']||ps[sale.info2]*unitForForm.info3| number:0}}">
+                                            </div>
+                                            <div class="input-append" style="float: left;">
+                                                <button class="btn btn-default icon-info-sign" style="width: 33px;height: 33px; float: left;padding: 3px" type="button" ng-class="{'memo-red':ps[sale.info2+'_memo']}" ng-click="openMemoDialog(sale.info2+'_memo')"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 3px">
+                                        <div class="form-group"><hr style="margin-top: 3px;margin-bottom: 3px"></div>
+
+                                        <label class="col-lg-2 control-label" for="sltUnitSales">{{ input_total }}</label>
+
+                                        <div class="col-lg-10" style="margin-top: 0px">
+                                            <div class="input-append" style="float: left;margin-right: 5px">
+                                                <label class="label label-default" id="sltUnitSales" style="width: 50px; height: 33px; float: left;font-size: 15px;line-height: 2" ng-init="unitForForm={info2:'-'}">{{unitForForm.info2}}</label>
+                                            </div>
+                                            <div class="input-append" style="float: left;">
+                                                <input type="text" style="width: 120px; float: left;text-align: right" class="number form-control input-sm" ng-model="s_total" value="{{s_total|number:2}}" disabled>
+                                            </div>
+                                            <label style="padding-top: 8px;float: left;">→</label>
+                                            <div class="input-append" style="float: left;">
+                                                <input type="text" style="width: 120px; float: left;text-align: right" class="form-control input-sm" ng-model="s_total_ex" value="{{s_total_ex | number:0}}" disabled>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="purchase-tab">
+                            <form class="form-horizontal">
+                                <fieldset>
+                                    <!--<div class="form-group" >-->
+                                        <!--<label class="col-lg-2 control-label" for="chkAllP">{{ input_check_all }}</label>-->
+
+                                        <!--<input id="chkAllP" type="checkbox" ng-model="p_check_all" style="float: left;width: 30px;height: 30px;margin-left: 15px;" onchange="angular.element(this).scope().setCheck(this)">-->
+                                    <!--</div>-->
+
+                                    <div class="form-group" ng-repeat="purchase in purchases" style="margin-bottom: 3px">
+                                        <label class="col-lg-2 control-label" for="sltUnit2">{{ purchase.info1 }}</label>
+
+                                        <div class="col-lg-10">
+                                            <div class="input-append" style="float: left;margin-right: 5px">
+                                                <select id="sltUnit2" ng-change="unitChanged()" class="form-control input-sm" style="width: 50px; float: left;padding-left: 3px" ng-model="unitForForm" ng-options="item.info2 for item in units" ></select>
+                                            </div>
+                                            <div class="input-append" style="float: left;">
+                                                <input type="text" style="width: 120px; float: left;text-align: right" class="number form-control input-sm" ng-model="ps[purchase.info2]" value="ps[purchase.info2]">
+                                            </div>
+                                            <label style="padding-top: 8px;float: left;">→</label>
+                                            <div class="input-append" style="float: left;">
+                                                <input type="text" style="width: 120px; float: left;text-align: right" class="form-control input-sm" ng-model="ps[purchase.info2+'_ex']" value="{{ps[purchase.info2+'_ex']&&ps[purchase.info2+'_ex']||ps[purchase.info2]*unitForForm.info3| number:0}}">
+                                            </div>
+                                            <div class="input-append" style="float: left;">
+                                                <button class="btn btn-default icon-info-sign" style="width: 33px;height: 33px; float: left;padding: 3px" type="button" ng-class="{'memo-red':ps[purchase.info2+'_memo']}" ng-click="openMemoDialog(purchase.info2+'_memo')" ></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 3px">
+                                        <div class="form-group"><hr style="margin-top: 3px;margin-bottom: 3px"></div>
+
+                                        <label class="col-lg-2 control-label" for="sltUnitPurchase">{{ input_total }}</label>
+
+                                        <div class="col-lg-10" style="margin-top: 0px">
+                                            <div class="input-append" style="float: left;margin-right: 5px">
+                                                <label class="label label-default" id="sltUnitPurchase" style="width: 50px; height: 33px; float: left;font-size: 15px;line-height: 2" ng-init="unitForForm={info2:'-'}">{{unitForForm.info2}}</label>
+                                            </div>
+                                            <div class="input-append" style="float: left;">
+                                                <input type="text" style="width: 120px; float: left;text-align: right" class="number form-control input-sm" ng-model="p_total" value="{{p_total | number:2}}" disabled>
+                                            </div>
+                                            <label style="padding-top: 8px;float: left;">→</label>
+                                            <div class="input-append" style="float: left;">
+                                                <input type="text" style="width: 120px; float: left;text-align: right" class="form-control input-sm" ng-model="s_total_ex" value="{{p_total_ex | number:0}}" disabled>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 3px;width: 100%;height: 50px;background-color: #ffffff">
+                        <div class="form-group"><hr style="margin-top: 3px;margin-bottom: 3px"></div>
+
+                        <label class="col-lg-2 control-label" for="sltUnitcm">{{ input_contribution_margin }}</label>
+
+                        <div class="col-lg-10" style="margin-top: 0px">
+                            <div class="input-append" style="float: left;">
+                                <input id="sltUnitcm" type="text" style="width: 300px; float: left;text-align: right" class="number form-control input-sm" ng-model="cm_total" value="{{cm_total|number:0}}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <div class="form-group"><hr style="margin-top: 5px;"></div>
+                        <button type="reset" class="btn btn-default" ng-click="new()" ng-disabled="newDisabled">{{ common_new }}</button>
+                        <button type="submit" class="btn btn-info" ng-click="save()" ng-disabled="saveDisabled">{{ common_save }}</button>
+                        <button type="button" class="btn btn-danger" ng-click="remove()" ng-disabled="removeDisabled">{{ common_remove }}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div ng-init="template = {url:'partials/inputTable.html'}" ng-include="template.url"></div>
+    </div>
+
+</div>

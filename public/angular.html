@@ -1,0 +1,104 @@
+<!--for bottstrap -->
+<script src="js/bootstrap/bootstrap.min.js" ></script>
+<script src="js/bootstrap/bootswatch.js"></script>
+<!--for date/time picker -->
+<!--<script type="text/javascript" src="js/datatimepicker/bootstrap-datetimepicker.min.js"></script>-->
+<!--for month picker -->
+<script type="text/javascript" src="js/monthpicker/bootstrap-datepicker.js"></script>
+<!--for highcharts-->
+<!--<script src="js/highchart/highcharts.js"></script>-->
+<script src="http://code.highcharts.com/stock/highstock.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<!--for calendar-->
+<!--<script type='text/javascript' src='js/fullcalendar/fullcalendar.min.js'></script>-->
+<!--for googlemap-->
+<!--<script src="js/googlemap/map.js"></script>-->
+<!--for angularjs bootstrap -->
+<script src="js/bootstrap/ui-bootstrap-tpls-0.5.0.js"></script>
+<!--for i18n-->
+<script src="js/i18n/jquery.i18n.properties-min-1.0.9.js"></script>
+<!--for checkbox-->
+<!--<script src="js/checkbox/prettyCheckable.js"></script>-->
+
+<!-- for bottstrap -->
+<link rel="stylesheet" href="http://bootswatch.com/flatly/bootstrap.min.css" media="screen">
+<link rel="stylesheet" href="http://bootswatch.com/bower_components/font-awesome/css/font-awesome.min.css">
+<!--<link rel="stylesheet" href="styles/bootstrap/bootswatch.min.css">-->
+<!--for date/time picker -->
+<!--<link rel="stylesheet" type="text/css" media="screen" href="styles/datetimepicker/bootstrap-datetimepicker.min.css">-->
+<!--for month picker -->
+<link rel="stylesheet" type="text/css" media="screen" href="styles/monthpicker/datepicker.css">
+
+<!--for calendar-->
+<!--<link rel='stylesheet' type='text/css' href='styles/fullcalendar/fullcalendar.css' />-->
+<!-- for chat -->
+<!--<link title="Style1" rel="stylesheet" type="text/css" href="styles/chat/chat.css" />-->
+<!--for main-->
+<link title="Style1" rel="stylesheet" type="text/css" href="styles/main.css" />
+
+<!--<script src="http://handsontable.com/dist/jquery.handsontable.full.js"></script>-->
+
+<!--<script data-require="angular.js@*" data-semver="1.2.0-rc3-nonmin" src="http://code.angularjs.org/1.2.0-rc.3/angular.js"></script>-->
+<script src="js/ngTable/ng-table.js"></script>
+<link rel="stylesheet" href="styles/ngTable/ng-table.css" />
+
+<script src="js/ngTable/ng-table-export.js"></script>
+<!--<script data-require="ng-table-export@0.1.0" data-semver="0.1.0" src="http://bazalt-cms.com/assets/ng-table-export/0.1.0/ng-table-export.js"></script>-->
+
+<!--<script src="js/ngGrid/ng-grid-2.0.7.min.js"></script>-->
+<!--<link rel="stylesheet" href="styles/ngGrid/ng-grid.min.css" />-->
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes"/>
+
+<div ng-controller="MainCtrl" style="height: 100%;min-width: 328px">
+
+    <div class="navbar navbar-default" style="z-index: 970;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">KDDI</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav">
+                    <li ng-click="selectMenu('user')" ng-class="{active : naviSelected0}" ng-show="user['type']=='admin'"><a href="#user">{{main_user_navi_title}}</a></li>
+                    <li ng-click="selectMenu('base')" ng-class="{active : naviSelected1}" ng-show="user['type']=='admin'"><a href="#base">{{main_base_navi_title}}</a></li>
+                    <li ng-click="selectMenu('import')" ng-class="{active : naviSelected2}" ng-show="user['type']=='admin'||user['type']=='user'"><a href="#import">{{main_import_navi_title}}</a></li>
+                    <li ng-click="selectMenu('input')" ng-class="{active : naviSelected3}" ng-show="user['type']=='admin'||user['type']=='user'"><a href="#input">{{main_input_navi_title}}</a></li>
+                    <li ng-click="selectMenu('list')" ng-class="{active : naviSelected4}"><a href="#list">{{main_list_navi_title}}</a></li>
+                    <li ng-click="selectMenu('trend')" ng-class="{active : naviSelected5}"><a href="#trend">{{main_trend_navi_title}}</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Link<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://naver.com">Naver</a></li>
+                            <li><a href="http://daum.net">Daum</a></li>
+                            <li class="divider"></li>
+                            <li><a href="http://www.kddi.or.jp">KDDI JP</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.nav-collapse -->
+        </div><!-- /.container -->
+    </div>
+
+    <div>
+        <h1 ng-model="title" style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap;" title="{{title}}">{{ title }}</h1>
+    </div>
+
+    <div>
+        <ng-view></ng-view>
+        <div class="loader" ng-show="loading" style="position: absolute;top:250px;width: 100%;height:100%;">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+</div>
